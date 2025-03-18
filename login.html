@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,14 +26,14 @@
         <h2>Login Senac</h2>
         <form>
             <div class="input-group">
-                    <label for="txtUsuario">Usuario</label>
+                    <label for="txtUsuario">Usuário</label>
                     <input type="text" id="txtUsuario" name="txtUsuario" placeholder="Digite seu usuário" required>
             </div>
             <div class="input-group">
-                <label for="txtSenha">Usuario</label>
+                <label for="txtSenha">Senha</label>
                 <input type="password" id="txtSenha" name="txtSenha" placeholder="Digite sua senha" required>
     </div>
-    <button type="submit">Entrar</button>
+    <button type="submit" onclick="acionarBotao()" id="btnEnviar">Entrar</button>
         </form>
     </div>
 </body>
