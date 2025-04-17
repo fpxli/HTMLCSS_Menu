@@ -18,6 +18,10 @@ body {
   align-items: center;
 }
 
+.header a:hover {
+  color: #ccc; 
+}
+
 .header .logo img {
   height: 80px;
   margin-left: 70px;
@@ -116,11 +120,20 @@ body {
   position: relative;
 }
 
+.footer a {
+  text-decoration: none; 
+  color: white;          
+}
+
+.footer a:hover {
+  color: #ccc; 
+}
+
 .footer-links {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 20px; 
 }
 
 .footer-links div p {
@@ -177,6 +190,11 @@ body {
   cursor: pointer;
   font-weight: bold;
   border-radius: 4px;
+}
+
+.login-form button:hover {
+  border-color: #292929; 
+  background-color: #1d1d1d;  
 }
 
 .login-form p {
