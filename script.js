@@ -1,59 +1,131 @@
-function verificarLogin(){
-   let usuario = document.getElementById("txtUsuario").value.trim();
-   let senha = document.getElementById("txtSenha").value.trim();
-   let mensagemErro = document.getElementById("mensagemErro");
+function buscarEnderecoPorCEP() {
 
-   if(usuario =="")
-      {
-      alert("Preencha o campo nome!");
-     }
-     else if(senha=="")
-      {
-      alert("Preencha o campo senha!");
-     }
-    else {
-       if(usuario=="admin" && senha=="admin"){
-         alert("Login administrador realizado com sucesso");
-         window.location.href ="paginaAdm.html";
-      } else if(usuario=="usuario" && senha=="usuario"){
-         alert("Login realizado com sucesso");
-         window.location.href ="paginaUsuario.html";
-      }else{
-          alert("Usuário ou senha inválidos!");
-          mensagemErro.textContent ="Usuário ou senha incorretos.";
-          mensagemErro.style.color="red";
-      }
-   }
-   }
+   const cep = document.getElementById("cep").value;
 
-function cadastrar(){
-   let usuario = document.getElementById("txtUsuario").value.trim();
-   let senha = document.getElementById("txtSenha").value.trim();
-   let dataNascimento = document.getElementById("txtdtNascimento").value;
-   let tipoConta = document.getElementById("selTipoConta").value;
 
-   if(usuario == "" || senha == "" || dataNascimento == "" || tipoConta == ""){
-       alert("Todos os campos devem ser preenchidos!");
+
+   if (cep.length !== 8) {
+
+       alert("CEP inválido. Deve conter 8 números.");
+
        return;
+
    }
-   else{
-       validarIdade(dataNascimento);
-   }
+
+
+
+   const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+   //const url_toda = 'viacep.com.br/ws/' + cep + '/json/';
+
+
+
+   fetch(url)
+
+       .then(response => response.json())
+
+       .then(data => {
+
+           if (data.erro) {
+
+               alert("CEP não encontrado.");
+
+               document.getElementById("endereco").value = "";
+
+           } else {
+
+               const enderecoCompleto = `${data.logradouro}`;
+
+               document.getElementById("endereco").value = enderecoCompleto;
+
+           }
+
+       })
+
+       .catch(error => {
+
+           console.error("Erro ao buscar o CEP:", error);
+
+           alert("Erro ao buscar o CEP.");
+
+       });
+
 }
 
-function validarIdade(dataNascimento){
-   let dataAtual = new Date();
-   let dataNasc = new Date(dataNascimento);
-   let idade = dataAtual.getFullYear() - dataNasc.getFullYear();
+function validarFormulario() {
 
-   if(idade < 18){
-       alert('Você não pode estar aqui!');
+   const nome = document.getElementById("nome").value.trim();
+
+   const dataNascimento = document.getElementById("dataNascimento").value;
+
+   const renda = document.getElementById("rendaFamiliar").value;
+
+   const endereco = document.getElementById("endereco").value;
+
+   if (nome === "") {
+
+       alert("Por favor, preencha o nome.");
+
        return;
+
    }
-   else {
-       alert('Cadastro realizado com sucesso!');
-       alert('Seja bem-vindo');
-       window.location.href="login.html"
-       
+
+   if (!validarIdade(dataNascimento)) {
+
+       alert("Você deve ser maior de idade para se cadastrar.");
+
+       return;
+
    }
+
+   if (!validarRenda(renda)) {
+
+       alert("A renda familiar deve ser um número positivo.");
+
+       return;
+
+   }
+
+   // Verificação se endereço foi preenchido
+
+   if (endereco === "") {
+
+       alert("Preencha um CEP válido para obter o endereço.");
+
+       return;
+
+   }
+
+   alert("Formulário enviado com sucesso!");
+
+}
+
+// Verifica se a pessoa tem 18 anos ou mais
+
+function validarIdade(dataNascimento) {
+
+   const hoje = new Date();
+
+   const nascimento = new Date(dataNascimento);
+
+   let idade = hoje.getFullYear() - nascimento.getFullYear();
+
+   const mes = hoje.getMonth() - nascimento.getMonth();
+
+   if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+
+       idade--;
+
+   }
+
+   return idade >= 18;
+
+}
+
+function validarRenda(valor) {
+
+   const renda = parseFloat(valor);
+
+   return !isNaN(renda) && renda > 0;
+
 }

@@ -192,3 +192,60 @@ body {
 .login-form a {
   color:#000;
 }
+
+.sobre-container {
+  max-width: 3000px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 100px 100px;
+
+}
+
+.sobre-container h1 {
+  font-size: 60px;  
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+.sobre-imagens {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.sobre-imagens img {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+}
+
+.sobre-imagem.final {
+  width: 100%; 
+  margin: 0;
+  padding: 0;
+}
+
+.sobre-imagem.final img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.texto-sobre {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.texto-sobre h2 {
+  font-size: 45px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.texto-sobre p {
+  font-size: 25px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
