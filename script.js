@@ -1,3 +1,32 @@
+function verificarLogin(){
+    let usuario = document.getElementById("txtUsuario").value.trim();
+    let senha = document.getElementById("txtSenha").value.trim();
+    let mensagemErro = document.getElementById("mensagemErro");
+
+    if(usuario =="")
+        {
+        alert("Preencha o campo nome!");
+       }
+       else if(senha =="")
+        {
+        alert("Preencha o campo senha!");
+       }
+       else {
+         if(usuario=="admin" && senha=="admin"){
+            alert("Login de administrador realizado com sucesso");
+            window.location.href ="paginaAdm.html";
+        }else if(usuario=="usuario" && senha=="correta"){
+             alert("Login realizado com sucesso!");
+             window.location.href ="paginaUser.html";
+        }else{
+             alert("Usuário ou senha inválidos!");
+            mensagemErro.textContent ="Usuário ou senha incorretos.";
+            mensagemErro.style.color="red";
+        }
+    }   
+}
+
+
 function buscarEnderecoPorCEP() {
 
    const cep = document.getElementById("cep").value;
