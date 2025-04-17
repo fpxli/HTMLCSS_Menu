@@ -43,13 +43,19 @@
         <input type="text" id="cep" name="cep" maxlength="9" onblur="buscarEnderecoPorCEP()" placeholder="Digite seu CEP" required>
   
         <label for="endereco">Endereço:</label>
-        <input type="text" id="txtEndereco" name="txtEndereco" placeholder="Seu endereço" readonly>
+        <input type="text" id="txtEndereco" name="txtEndereco" placeholder="Seu endereço" readonly required>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="txtBairro" name="txtBairro" placeholder="Seu bairro" readonly required>
+
+        <label for="numero">Número:</label>
+        <input type="number" id="txtNumero" name="txtNumero" maxlength="5" placeholder="Seu número" required>
 
         <label for="senha">Senha:</label>
         <input type="password" id="txtSenha" name="txtSenha" placeholder="Digite sua senha" required>
   
   
-        <button type="submit">Cadastrar</button>
+        <button type="button" onclick="validarFormulario()">Cadastrar</button>
         <p>Já tem conta? <a href="login.html">Entrar</a></p>
       </form>
     </div>

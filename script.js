@@ -27,10 +27,13 @@ function verificarLogin(){
 }
 
 function buscarEnderecoPorCEP() {
+    let cep = document.getElementById("cep").value;
+    cep = cep.replace(/\D/g, ""); // remove caracteres não numéricos
 
-    const cep = document.getElementById("cep").value;
     if (cep.length !== 8) {
         alert("CEP inválido. Deve conter 8 números.");
+        document.getElementById("txtEndereco").value = "";
+        document.getElementById("txtBairro").value = "";
         return;
     }
 
@@ -41,10 +44,11 @@ function buscarEnderecoPorCEP() {
         .then(data => {
             if (data.erro) {
                 alert("CEP não encontrado.");
-                document.getElementById("endereco").value = "";
+                document.getElementById("txtEndereco").value = "";
+                document.getElementById("txtBairro").value = "";
             } else {
-                const enderecoCompleto = `${data.logradouro}`;
-                document.getElementById("endereco").value = enderecoCompleto;
+                document.getElementById("txtEndereco").value = data.logradouro || "";
+                document.getElementById("txtBairro").value = data.bairro || "";
             }
         })
         .catch(error => {
@@ -53,6 +57,7 @@ function buscarEnderecoPorCEP() {
         });
 }
 
+
 function validarFormulario() {
 
    const nome = document.getElementById("txtNome").value.trim();
@@ -60,6 +65,9 @@ function validarFormulario() {
    const email = document.getElementById("txtEmail").value.trim();
    const dataNascimento = document.getElementById("dataNascimento").value;
    const endereco = document.getElementById("txtEndereco").value;
+   const bairro = document.getElementById('txtBairro').value;
+   const numero = document.getElementById('txtNumero').value;
+   const senha = document.getElementById("txtSenha").value;
 
    if (nome === "") {
        alert("Por favor, preencha o nome.");
@@ -80,10 +88,22 @@ function validarFormulario() {
    if (endereco === "") {
        alert("Preencha um CEP válido para obter o endereço.");
        return;
-   }
-   
+}
+    if (bairro === "") {
+    alert("Por favor, verifique o campo CEP.");
+    return;
+}
+    if (numero === "") {
+    alert("Por favor, preencha o número.");
+    return;
+}
+   if (senha === "") {
+    alert("Por favor, preencha a senha.");
+    return;
+}
      alert("Cadastro realizado com sucesso!");
      window.location.href="login.html";
+     return false;
 }
 
 function validarIdade(dataNascimento) {
@@ -99,3 +119,19 @@ function validarIdade(dataNascimento) {
    return idade >= 18;
 
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const cidade = "São Paulo";
+
+    fetch(`https://goweather.herokuapp.com/weather/${encodeURIComponent(cidade)}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("temperatura").textContent = data.temperature || "Não disponível";
+            document.getElementById("vento").textContent = data.wind || "Não disponível";
+            document.getElementById("descricaoclima").textContent = data.description || "Não disponível";
+        })
+        .catch(error => {
+            console.error("Erro ao buscar o clima:", error);
+            document.getElementById("clima-container").innerHTML = "<p>Erro ao carregar o clima.</p>";
+        });
+});

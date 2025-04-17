@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LOGIN | KAIZEN MMA GYM</title>
+  <title>AULAS | KAIZEN MMA GYM</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js"></script>
 </head>
+
 
 <body>
   <header class="header">
@@ -18,24 +19,24 @@
       <a href="sobre.html">Sobre</a>
     </nav>
   </header>
-
-  <main class="login-container">
-    <div class="login-image">
-      <img src="imagens/lutador-login.jpg" alt="Lutador" />
+  <div class="aulas-topo">
+    <img src="imagens/aulas-topo.jpg" alt="Imagem de clima em São Paulo">
+  </div>
+    <h1>
+        Suas aulas
+    </h1>
+    <h2>
+        Verifique seu cronograma de aulas para esta semana:
+    </h2>
+    <h3>Antes de sair de casa, veja como está o clima lá fora:</h3>
+    <div class="clima-container">
+        <h2>Clima de São Paulo</h2>
+        <p>Temperatura: <span id="temperatura"></span></p>
+        <p>Vento: <span id="vento"></span></p>
+        <p>Detalhes: <span id="descricaoclima"></span></p>
     </div>
-    <div class="login-form">
-    <form>
-      <h2>EFETUAR LOGIN</h2>
-      <input type="email" id="txtUsuario" name="txtUsuario" placeholder="Email" required>
 
-      <input type="password" id="txtSenha" name="txtSenha" placeholder="Senha" required>
-
-      <button type="button" onClick=verificarLogin()>Entrar</button>
-
-      <p>Não tem conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
-    </form>
-    </div>
-  </main>
+</body>
 
   <footer class="footer">
     <div class="footer-links">
@@ -67,5 +68,3 @@
   </footer>
 </body>
 </html>
-
-    

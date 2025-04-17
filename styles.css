@@ -325,7 +325,7 @@ body {
 .cadastro-image img {
   max-width: 100%;
   border-radius: 5px;
-  max-height: 500px;
+  max-height: 600px;
   
 }
 
@@ -409,4 +409,38 @@ body {
   font-size: 17px;
   line-height: 1.6;
   color: #333;
+}
+
+.aulas-topo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 600px;
+}
+
+.clima-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border: 3px solid #000;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.clima-container h2 {
+  font-size: 32px;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.clima-container p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.clima-container span {
+  font-weight: bold;
 }
