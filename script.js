@@ -1,30 +1,40 @@
-function verificarLogin(){
-    let usuario = document.getElementById("txtUsuario").value.trim();
-    let senha = document.getElementById("txtSenha").value.trim();
-    let mensagemErro = document.getElementById("mensagemErro");
+function verificarLogin() {
+  const usuario = document.getElementById("txtUsuario").value.trim();
+  const senha = document.getElementById("txtSenha").value.trim();
+  const mensagemErro = document.getElementById("mensagemErro");
 
-    if(usuario =="")
-        {
-        alert("Preencha o campo nome!");
-       }
-       else if(senha =="")
-        {
-        alert("Preencha o campo senha!");
-       }
-       else {
-         if(usuario=="admin" && senha=="admin"){
-            alert("Login de administrador realizado com sucesso");
-            window.location.href ="paginaAdm.html";
-        }else if(usuario=="usuario" && senha=="correta"){
-             alert("Login realizado com sucesso!");
-             window.location.href ="paginaUser.html";
-        }else{
-             alert("Usuário ou senha inválidos!");
-            mensagemErro.textContent ="Usuário ou senha incorretos.";
-            mensagemErro.style.color="red";
-        }
-    }   
+  mensagemErro.textContent = "";
+
+  if (usuario === "") {
+    alert("Preencha o campo de usuário!");
+    return;
+  }
+
+  if (senha === "") {
+    alert("Preencha o campo de senha!");
+    return;
+  }
+
+  if (usuario === "admin" && senha === "admin") {
+    alert("Login de administrador realizado com sucesso!");
+    window.location.href = "paginaAdm.html";
+    return;
+  }
+
+
+  const dadosUsuario = JSON.parse(localStorage.getItem("usuario"));
+
+  if (dadosUsuario && usuario === dadosUsuario.email && senha === dadosUsuario.senha) {
+    alert("Login realizado com sucesso!");
+    window.location.href = "paginaUser.html";
+  } else {
+    alert("Usuário ou senha inválidos!");
+    mensagemErro.textContent = "Usuário ou senha incorretos.";
+    mensagemErro.style.color = "red";
+  }
 }
+
+
 
 function buscarEnderecoPorCEP() {
     let cep = document.getElementById("cep").value;
@@ -101,9 +111,22 @@ function validarFormulario() {
     alert("Por favor, preencha a senha.");
     return;
 }
-     alert("Cadastro realizado com sucesso!");
-     window.location.href="login.html";
-     return false;
+    const dadosUsuario = {
+    nome,
+    sobrenome,
+    email,
+    dataNascimento,
+    endereco,
+    bairro,
+    numero,
+    senha
+  };
+
+  localStorage.setItem("usuario", JSON.stringify(dadosUsuario));
+
+  alert("Cadastro realizado com sucesso!");
+  window.location.href = "login.html";
+  return false;
 }
 
 function validarIdade(dataNascimento) {
@@ -120,6 +143,9 @@ function validarIdade(dataNascimento) {
 
 }
 
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const cidade = "São Paulo";
 
@@ -134,4 +160,65 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Erro ao buscar o clima:", error);
             document.getElementById("clima-container").innerHTML = "<p>Erro ao carregar o clima.</p>";
         });
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarEl = document.getElementById('calendar');
+
+
+  function carregarEventos() {
+    const eventosSalvos = localStorage.getItem("eventos");
+    return eventosSalvos ? JSON.parse(eventosSalvos) : [];
+  }
+
+
+  function salvarEventos(eventos) {
+    const eventosSimplificados = eventos.map(evento => ({
+      title: evento.title,
+      start: evento.startStr,
+      end: evento.endStr,
+      allDay: evento.allDay
+    }));
+    localStorage.setItem("eventos", JSON.stringify(eventosSimplificados));
+  }
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridWeek',
+    locale: 'pt-br',
+    selectable: true,
+    editable: true,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay'
+    },
+    events: carregarEventos(),
+
+    dateClick: function (info) {
+      const title = prompt("Adicionar aula nesta data:");
+      if (title) {
+        const novoEvento = {
+          title: title,
+          start: info.dateStr,
+          allDay: true
+        };
+        calendar.addEvent(novoEvento);
+        salvarEventos(calendar.getEvents());
+      }
+    },
+
+    eventChange: function () {
+      salvarEventos(calendar.getEvents());
+    },
+
+    eventRemove: function () {
+      salvarEventos(calendar.getEvents());
+    }
+  });
+
+  calendar.render();
 });

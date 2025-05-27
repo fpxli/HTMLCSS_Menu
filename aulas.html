@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AULAS | KAIZEN MMA GYM</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
 </head>
 
 
 <body>
   <header class="header">
-    <div class="logo" > <a href="index.html"><img src="imagens/logo.png" alt="Logo" /></a></div>
+    <div class="logo">
+      <a href="index.html"><img src="imagens/logo.png" alt="Logo" /></a>
+    </div>
     <nav class="menu">
       <a href="login.html">Login</a>
       <a href="aulas.html">Aulas</a>
@@ -19,24 +23,58 @@
       <a href="sobre.html">Sobre</a>
     </nav>
   </header>
+
+
   <div class="aulas-topo">
     <img src="imagens/aulas-topo.jpg" alt="Imagem de clima em São Paulo">
   </div>
-    <h1>
-        Suas aulas
-    </h1>
-    <h2>
-        Verifique seu cronograma de aulas para esta semana:
-    </h2>
+
+  <div class="aulas-texto">
+    <h1>Suas aulas</h1>
+    <h2>Verifique seu cronograma de aulas para esta semana:</h2>
+    <div class="informacoes-aulas">
+  <h2>Programação semanal das aulas</h2>
+  <p>
+    Nosso foco é extrair o seu melhor, e desenvolvê-lo aula a aula. Abaixo você confere os horários das aulas e conhece mais sobre cada modalidade oferecida.
+  </p>
+
+  <div class="grade-aulas">
+    <div class="aula">
+      <h3>JIU-JITSU</h3>
+      <p><strong>Segunda e Quarta:</strong> 19h às 20h</p>
+      <p>
+        Arte suave com foco em domínio, controle e finalização no solo. Indicada para todos os níveis, com ênfase em técnica e resistência.
+      </p>
+    </div>
+    <div class="aula">
+      <h3>BOXE</h3>
+      <p><strong>Terça e Quinta:</strong> 18h às 19h30</p>
+      <p>
+        Treinos de alto rendimento voltados à performance, explosão e condicionamento físico. Ideal para quem busca disciplina e superação pessoal.
+      </p>
+    </div>
+    <div class="aula">
+      <h3>MUAY THAI</h3>
+      <p><strong>Terça e Sexta:</strong> 20h às 21h30</p>
+      <p>
+        A arte das oito armas. Desenvolve potência, flexibilidade e defesa pessoal com técnicas tradicionais tailandesas e treinos funcionais.
+      </p>
+    </div>
+  </div>
+</div>
+<H2>Registre aqui suas aulas:</H2>
+    <div id="calendar"></div>
+  </div>
+
+  <div class="sessao-clima">
     <h3>Antes de sair de casa, veja como está o clima lá fora:</h3>
     <div class="clima-container">
-        <h2>Clima de São Paulo</h2>
-        <p>Temperatura: <span id="temperatura"></span></p>
-        <p>Vento: <span id="vento"></span></p>
-        <p>Detalhes: <span id="descricaoclima"></span></p>
+      <h2>Clima de São Paulo</h2>
+      <p>Temperatura: <span id="temperatura"></span></p>
+      <p>Vento: <span id="vento"></span></p>
+      <p>Detalhes: <span id="descricaoclima"></span></p>
     </div>
-
-</body>
+  </div>
 
   <footer class="footer">
     <div class="footer-links">
@@ -66,5 +104,11 @@
       <p>R. Américo Brasiliense, 1393 - Chácara Santo Antônio, São Paulo - SP, 04715-003</p>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
