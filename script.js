@@ -21,8 +21,12 @@ function verificarLogin() {
     return;
   }
 
-
   const dadosUsuario = JSON.parse(localStorage.getItem("usuario"));
+
+  if (dadosUsuario?.email === "admin") {
+    alert("Este usuário é reservado para o administrador.");
+    return;
+  }
 
   if (dadosUsuario && usuario === dadosUsuario.email && senha === dadosUsuario.senha) {
     alert("Login realizado com sucesso!");
@@ -36,6 +40,7 @@ function verificarLogin() {
 
 
 
+/* Página registro */
 function buscarEnderecoPorCEP() {
     let cep = document.getElementById("cep").value;
     cep = cep.replace(/\D/g, ""); // remove caracteres não numéricos
@@ -66,6 +71,8 @@ function buscarEnderecoPorCEP() {
             alert("Erro ao buscar o CEP.");
         });
 }
+
+
 
 
 function validarFormulario() {
@@ -145,7 +152,7 @@ function validarIdade(dataNascimento) {
 
 
 
-
+/* Página aulas */
 document.addEventListener("DOMContentLoaded", function () {
     const cidade = "São Paulo";
 
@@ -165,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
+/* Página eventos */
 document.addEventListener('DOMContentLoaded', function () {
   const calendarEl = document.getElementById('calendar');
 
@@ -222,3 +229,114 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 });
+
+
+
+const icsUrl = 'https://raw.githubusercontent.com/clarencechaan/ufc-cal/ics/UFC.ics';
+const maxEventos = 5; // Quantidade máxima de eventos exibidos
+
+function converterParaHorarioLocal(icsDate) {
+  const dataFormatada = icsDate.replace(/T/, '').replace(/Z/, '');
+  const ano = parseInt(dataFormatada.substring(0, 4));
+  const mes = parseInt(dataFormatada.substring(4, 6)) - 1;
+  const dia = parseInt(dataFormatada.substring(6, 8));
+  const hora = parseInt(dataFormatada.substring(9, 11));
+  const minuto = parseInt(dataFormatada.substring(11, 13));
+  const segundo = parseInt(dataFormatada.substring(13, 15));
+
+  const data = new Date(Date.UTC(ano, mes, dia, hora, minuto, segundo));
+  return data.toLocaleString('pt-BR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+async function carregarEventos() {
+  try {
+    const resposta = await fetch(icsUrl);
+    const texto = await resposta.text();
+    let eventos = parseICS(texto);
+
+    // Filtra apenas eventos futuros
+    const agora = new Date();
+    eventos = eventos.filter(evento => new Date(evento.dataHoraReal) > agora);
+
+    eventos.sort((a, b) => new Date(a.dataHoraReal) - new Date(b.dataHoraReal));
+
+    eventos = eventos.slice(0, maxEventos);
+
+    const tabela = document.getElementById('eventos').getElementsByTagName('tbody')[0];
+
+    eventos.forEach(evento => {
+      const linha = tabela.insertRow();
+      linha.innerHTML = `
+        <td>${converterParaHorarioLocal(evento.dataHora)}</td>
+        <td class="event-title">${evento.titulo}</td>
+        <td>${evento.descricao}</td>
+      `;
+    });
+  } catch (erro) {
+    console.error('Erro ao carregar eventos:', erro);
+  }
+}
+
+
+function parseICS(texto) {
+  const eventos = [];
+  const linhas = texto.split(/\r?\n/);
+  let eventoAtual = {};
+  let capturarDescricao = false;
+  let descricaoTemp = '';
+
+  linhas.forEach((linha, i) => {
+    if (linha.startsWith('BEGIN:VEVENT')) {
+      eventoAtual = {};
+      capturarDescricao = false;
+      descricaoTemp = '';
+    } 
+    else if (linha.startsWith('DTSTART')) {
+      const dataRaw = linha.split(':')[1].trim();
+      eventoAtual.dataHora = dataRaw;
+      eventoAtual.dataHoraReal = new Date(
+        Date.UTC(
+          parseInt(dataRaw.substring(0, 4)),
+          parseInt(dataRaw.substring(4, 6)) - 1,
+          parseInt(dataRaw.substring(6, 8)),
+          parseInt(dataRaw.substring(9, 11)),
+          parseInt(dataRaw.substring(11, 13)),
+          parseInt(dataRaw.substring(13, 15))
+        )
+      );
+    } 
+    else if (linha.startsWith('SUMMARY')) {
+      eventoAtual.titulo = linha.split(':')[1];
+    } 
+    else if (linha.startsWith('DESCRIPTION')) {
+      capturarDescricao = true;
+      descricaoTemp = linha.split(':')[1];
+    } 
+    else if (capturarDescricao && linha.startsWith(' ')) {
+      descricaoTemp += linha.trim();
+    } 
+    else if (capturarDescricao && !linha.startsWith(' ')) {
+      eventoAtual.descricao = descricaoTemp.replace(/\\n/g, '<br>');
+      capturarDescricao = false;
+    }
+    if (linha.startsWith('END:VEVENT')) {
+      if (capturarDescricao) {
+        eventoAtual.descricao = descricaoTemp.replace(/\\n/g, '<br>');
+        capturarDescricao = false;
+      }
+      eventos.push(eventoAtual);
+    }
+  });
+
+  return eventos;
+}
+
+carregarEventos();
+

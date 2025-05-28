@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LOGIN | KAIZEN MMA GYM</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
+  
 </head>
 
 <body>
@@ -16,8 +16,10 @@
       <a href="aulas.html">Aulas</a>
       <a href="loja.html">Loja</a>
       <a href="sobre.html">Sobre</a>
+      <a href="carrinho.html">Carrinho</a>
     </nav>
   </header>
+  
 
   <main class="login-container">
     <div class="login-image">
@@ -26,23 +28,23 @@
     <div class="login-form">
     <form>
       <h2>EFETUAR LOGIN</h2>
-      <input type="email" id="txtUsuario" name="txtUsuario" placeholder="Email" required>
+      <input type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuário ou email" required>
 
       <input type="password" id="txtSenha" name="txtSenha" placeholder="Senha" required>
 
-      <button type="button" onClick=verificarLogin()>Entrar</button>
+      <button type="button" onclick="verificarLogin()">Entrar</button>
 
       <p>Não tem conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
     </form>
     </div>
   </main>
 
-  <footer class="footer">
+ <footer class="footer">
     <div class="footer-links">
       <div>
-        <p>POLÍTICA DE PRIVACIDADE</p>
-        <p>TERMOS E CONDIÇÕES</p>
-        <p>DEFINIÇÕES DE COOKIES</p>
+        <p><a href="politicas.html">POLÍTICA DE PRIVACIDADE</a></p>
+        <p><a href="politicas.html">TERMOS E CONDIÇÕES</a></p>
+        <p><a href="politicas.html">DEFINIÇÕES DE COOKIES</a></p>
         <p>ENTRE EM CONTATO</p>
         <p>ACOMPANHE SEU PEDIDO</p>
       </div>
@@ -55,7 +57,7 @@
         <p><a href="loja.html">LOJA</a></p>
         <p><a href="sobre.html">SOBRE</a></p>
         <p><a href="lutas.html">ESTILOS DE LUTA</a></p>
-        <p><a href="evento.html">PRÓXIMOS EVENTOS</a></p>
+        <p><a href="eventos.html">PRÓXIMOS EVENTOS</a></p>
         <p><a href="aulas.html">AULAS DISPONÍVEIS</a></p>
         <p><a href="professores.html">NOSSOS PROFESSORES</a></p>
       </div>
@@ -65,6 +67,7 @@
       <p>R. Américo Brasiliense, 1393 - Chácara Santo Antônio, São Paulo - SP, 04715-003</p>
     </div>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
 
