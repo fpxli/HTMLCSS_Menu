@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAGÍNA USUÁRIO | KAIZEN MMA GYM</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
 </head>
 
 <body>
@@ -19,13 +18,29 @@
       <a href="carrinho.html">Carrinho</a>
     </nav>
   </header>
+  <h1>Editar Perfil</h1>
 
-    <h1>
-        Página de usuário
-    </h1>
-    <h2>
-        Aqui você poderá verificar disponibilidades para o usuário
-    </h2>
+<div class="user-container">
+    <form id="formEditarUsuario" class="user-banner">
+      <h1>Editar Perfil</h1>
+
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" required />
+
+      <label for="endereco">Endereço:</label>
+      <input type="text" id="endereco" required />
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" required />
+
+      <button type="submit">Salvar alterações</button>
+
+      <p class="mensagem" id="msgSucesso"></p>
+    </form>
+  </div>
+
+  <script src="usuario.js"></script>
+
 </body>
 
 
